@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "716356650866",
+    "firebase_url": "https://qr-code-restaurants-menu.firebaseio.com",
+    "project_id": "qr-code-restaurants-menu",
+    "storage_bucket": "qr-code-restaurants-menu.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:716356650866:android:47d11bed3f32afc06c7feb",
+        "android_client_info": {
+          "package_name": "com.example.qrcoderestaurantsmenu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "716356650866-r61vej7jfohql0ho1skd00u90ul5ra67.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.qrcoderestaurantsmenu",
+            "certificate_hash": "4d603d90df36ea4a9203da1678e5d479e76c6d3d"
+          }
+        },
+        {
+          "client_id": "716356650866-ika51jav5m68v2t9pgg7o1368tsm4a8i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6fHjS8tp64ei36Vxg_tfloi1AMQ_ns3k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "716356650866-ika51jav5m68v2t9pgg7o1368tsm4a8i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

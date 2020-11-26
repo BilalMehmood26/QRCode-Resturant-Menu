@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">QR Code Restaurants Menu</string>
+
+    <string name="SignUp">Don\'t Have an Account? <b>SIGNUP</b> </string>
+    <string name="SignIn">Already Have an Account? <b>SIGNIN</b> </string>
+</resources>
