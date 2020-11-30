@@ -22,6 +22,7 @@ import java.util.List;
 
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
 
+
     private ArrayList<RVModelClass> arrayList;
     Activity activity;
 

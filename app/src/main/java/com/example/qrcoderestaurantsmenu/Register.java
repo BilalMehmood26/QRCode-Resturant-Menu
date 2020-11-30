@@ -1,5 +1,6 @@
 package com.example.qrcoderestaurantsmenu;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,7 +9,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -19,6 +27,11 @@ public class Register extends AppCompatActivity {
 
     private DatabaseReference mDataBaseReference;
     private FirebaseDatabase mRootNode;
+
+    FirebaseAuth firebaseAuth;
+
+    String Email,password,userName,contactNumber;
+    SignUpModelClass userSignUp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +44,9 @@ public class Register extends AppCompatActivity {
         mPhoneNo = findViewById(R.id.et_Contact);
         mFullName = findViewById(R.id.et_name);
 
+
+        firebaseAuth=FirebaseAuth.getInstance();
+        mDataBaseReference=FirebaseDatabase.getInstance().getReference();
 
         signUnBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,27 +126,68 @@ public class Register extends AppCompatActivity {
             return;
         }
 
-        String email = mEmail.getEditText().getText().toString().trim();
-        String password = mPassword.getEditText().getText().toString().trim();
-        String contact = mPhoneNo.getEditText().getText().toString().trim();
-        String name = mFullName.getEditText().getText().toString().trim();
+         Email = mEmail.getEditText().getText().toString().trim();
+         password = mPassword.getEditText().getText().toString().trim();
+         contactNumber = mPhoneNo.getEditText().getText().toString().trim();
+         userName = mFullName.getEditText().getText().toString().trim();
+
+        userSignUp = new SignUpModelClass(Email, contactNumber,userName);
+
+        firebaseAuth.createUserWithEmailAndPassword(Email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful())
+                {
+
+                    FirebaseUser firebaseUser=firebaseAuth.getCurrentUser();
+                    firebaseUser.getUid();
+
+                    getuserValue();
+                    mDataBaseReference.child("UserProfile").child(firebaseUser.getUid()).setValue(userSignUp).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(Register.this, "SignUp Successful", Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(Register.this, "Error while Data Save", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+                else {
+                    Toast.makeText(Register.this, "Error while SignUp", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(Register.this, "SignUp Failure"+e, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+//        mRootNode = FirebaseDatabase.getInstance();
+//        mDataBaseReference = mRootNode.getReference("user");
+//
 
 
-        mRootNode = FirebaseDatabase.getInstance();
-        mDataBaseReference = mRootNode.getReference("user");
-
-
-        SignUpModelClass userSignUp = new SignUpModelClass(email, password, contact,name);
-        mDataBaseReference.child(contact).setValue(userSignUp);
-
+//        mDataBaseReference.child(contact).setValue(userSignUp);
 
         Toast.makeText(this, "User Created", Toast.LENGTH_SHORT).show();
 
-
-        mEmail.getEditText().getText().clear();
         mPassword.getEditText().getText().clear();
         mPhoneNo.getEditText().getText().clear();
+
+
+        mEmail.getEditText().getText().clear();
+
         mFullName.getEditText().getText().clear();
 
+    }
+
+    private void getuserValue() {
+        userSignUp.setmEmail(Email);
+        userSignUp.setmFullName(userName);
+        userSignUp.setmPhoneNo(contactNumber);
     }
 }

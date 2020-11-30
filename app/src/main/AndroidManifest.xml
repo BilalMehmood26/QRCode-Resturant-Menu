@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.qrcoderestaurantsmenu">
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.SEND_SMS" />
 
     <application
         android:allowBackup="true"
@@ -14,14 +15,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".AdminLogin"></activity>
+        <activity android:name=".AdminSide" />
+        <activity android:name=".OrderInvoice" />
+        <activity android:name=".AddToCart" />
+        <activity android:name=".OrderHorizontal" />
         <activity
             android:name=".Order"
-            android:parentActivityName=".Menu"/>
+            android:parentActivityName=".Menu" />
         <activity
             android:name=".Menu"
-            android:parentActivityName=".QRScan"/>
-
-
+            android:parentActivityName=".QRScan" />
         <activity android:name=".Scanner" />
         <activity
             android:name=".QRScan"

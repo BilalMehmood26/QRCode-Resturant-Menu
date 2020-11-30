@@ -34,7 +34,7 @@
             android:layout_marginRight="8dp"
             android:layout_weight="1"
             android:backgroundTint="@color/design_default_color_on_secondary"
-            android:text="Login" />
+            android:text="User Login" />
 
         <Button
             android:id="@+id/registration"
@@ -43,7 +43,7 @@
             android:layout_marginLeft="8dp"
             android:layout_weight="1"
             android:backgroundTint="@color/design_default_color_on_secondary"
-            android:text="Register" />
+            android:text="Admin Login" />
 
     </LinearLayout>
 

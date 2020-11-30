@@ -1,35 +1,28 @@
 package com.example.qrcoderestaurantsmenu;
 
 public class SignUpModelClass {
-    public String mEmail, mPassword, mPhoneNo, mFullName;
-    public SignUpModelClass() {
-    }
+    public String mEmail, mPhoneNo, mFullName;
 
-    public SignUpModelClass(String mEmail, String mPassword, String mPhoneNo, String mFullName) {
+    public SignUpModelClass(String mEmail, String mPhoneNo, String mFullName) {
         this.mEmail = mEmail;
-        this.mPassword = mPassword;
         this.mPhoneNo = mPhoneNo;
         this.mFullName = mFullName;
     }
 
-    public String getEmail() {
+    public String getmEmail() {
         return mEmail;
     }
 
-    public void setEmail(String mEmail) {
+    public void setmEmail(String mEmail) {
         this.mEmail = mEmail;
     }
 
-    public String getPassword() {
-        return mPassword;
-    }
-
-    public void setPassword(String mPassword) {
-        this.mPassword = mPassword;
-    }
-
-    public String getPhoneNo() {
+    public String getmPhoneNo() {
         return mPhoneNo;
+    }
+
+    public void setmPhoneNo(String mPhoneNo) {
+        this.mPhoneNo = mPhoneNo;
     }
 
     public String getmFullName() {
@@ -38,9 +31,5 @@ public class SignUpModelClass {
 
     public void setmFullName(String mFullName) {
         this.mFullName = mFullName;
-    }
-
-    public void setPhoneNo(String mPhoneNo) {
-        this.mPhoneNo = mPhoneNo;
     }
 }

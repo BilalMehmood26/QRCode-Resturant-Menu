@@ -12,9 +12,14 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.qrcoderestaurantsmenu.ModelClasses.AddToCart;
+
+import java.util.ArrayList;
+
 class OrderSummary{
     public String customerName, phone,foodItem,orderType;
     public int quantity,price;
+
 
     public OrderSummary(String customerName, String phone, String foodItem, String orderType, int quantity, int price) {
         this.customerName = customerName;
@@ -32,9 +37,13 @@ class OrderSummary{
 
 public class Order extends AppCompatActivity {
 
-    TextView item, itemDetail, price, custFullName, mcustPhoneNo;
-    ImageView itemImage;
-    String foodItem,foodItemDetail,foodItemPrice,custName,custPhoneNo = "";
+    TextView item, itemDetail, price, custFullName, mcustPhoneNo,horizontalTitle,horizontalDetail,horizontalPrice;
+    ImageView itemImage,horizontalImage;
+
+    String foodItem,foodItemDetail,foodItemPrice,custName,custPhoneNo = "", horizonTitle,horizonDetail,horizonPrice;
+    int horizonImage;
+    public static ArrayList<AddToCart> cartItems;
+
     int quantity = 1;
     String OrderType = "";
     @Override
@@ -48,12 +57,16 @@ public class Order extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        cartItems = new ArrayList<>();
+
+
+        // Getting Vertical REcycler View data
         foodItem = getIntent().getStringExtra("ItemName");
         foodItemDetail = getIntent().getStringExtra("ItemDetail");
         foodItemPrice = getIntent().getStringExtra("price");
         final int imageResource = getIntent().getIntExtra("ItemImage", 0);
-        custName = getIntent().getStringExtra("mFullName");
-        custPhoneNo = getIntent().getStringExtra("mPhoneNo");
+        custName = QRScan.UserName;
+        custPhoneNo = QRScan.UserPhoneNumber;
 
 
         item = findViewById(R.id.item_title);
@@ -73,6 +86,25 @@ public class Order extends AppCompatActivity {
 
         itemImage = findViewById(R.id.itemImageView);
         itemImage.setImageResource(imageResource);
+
+        // Getting Horizontal RecyclerView's Data
+/*
+        horizonImage = getIntent().getIntExtra("foodImage",0);
+        horizonTitle = getIntent().getStringExtra("Title");
+        horizonDetail = getIntent().getStringExtra("Detail");
+        horizonPrice = getIntent().getStringExtra("Price");
+
+        horizontalTitle = findViewById(R.id.item_title);
+        horizontalTitle.setText(horizonTitle);
+
+        horizontalDetail = findViewById(R.id.textView2);
+        horizontalTitle.setText(horizonDetail);
+
+        horizontalImage = findViewById(R.id.itemImageView);
+        horizontalImage.setImageResource(horizonImage);
+
+        horizontalPrice = findViewById(R.id.textViewPrice);
+        horizontalPrice.setText(horizonPrice);*/
     }
 
     /**
@@ -132,11 +164,14 @@ public class Order extends AppCompatActivity {
 
         int price = Integer.parseInt(foodItemPrice.toString());
         OrderSummary orderSummary = new OrderSummary(custName,custPhoneNo,foodItem,OrderType,quantity,price);
+
+        cartItems.add(new AddToCart(String.valueOf(quantity),custName,custPhoneNo,foodItem,foodItemPrice,OrderType));
+        Toast.makeText(this, "Item Added in Cart", Toast.LENGTH_SHORT).show();
         // Create the text message with a string
-        String number = "+923315877212";  // The number on which you want to send SMS
-        Intent sendIntent = new Intent(Intent.ACTION_VIEW, Uri.fromParts("sms", number, null));
+       /* String number = "+923315877212";  // The number on which you want to send SMS
+     *//*   Intent sendIntent = new Intent(Intent.ACTION_VIEW, Uri.fromParts("sms", number, null));
         sendIntent.putExtra(Intent.EXTRA_TEXT, createOrderSummary(orderSummary));
-        startActivity(sendIntent);
+        startActivity(sendIntent);*/
     }
 
     private String createOrderSummary(OrderSummary summary) {

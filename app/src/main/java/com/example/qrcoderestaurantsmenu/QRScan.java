@@ -13,6 +13,8 @@ public class QRScan extends AppCompatActivity {
 
     /*public static TextView resultTV;*/
     Button scanBtn;
+
+    public  static  String UserName,UserPhoneNumber;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +24,9 @@ public class QRScan extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         /*resultTV = findViewById(R.id.result);*/
+
+        UserName=getIntent().getStringExtra("mFullName");
+        UserPhoneNumber=getIntent().getStringExtra("mPhoneNo");
 
         scanBtn = findViewById(R.id.scan_qr_code);
 
